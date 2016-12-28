@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>chatroom 1.0</title>
+    <style type="text/css">
+      *{padding: 0;margin: 0;box-sizing: border-box;font-family: PingFangSC-Light,Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,STHeitiSC-Light,Microsoft YaHei,Arial,sans-serif;}
+      html,body{width: 100%;height: 100%;}
+      li{list-style: none;}
+      #app{
+        width: 80%;
+        height: 100%;
+        padding: 20px 0;
+        margin: 0 auto;
+      }
+      .dialog-box{
+        width: 100%;
+        height: 80%;
+        padding-bottom: 20px;
+        background-color: #e7f7f4;
+      }
+      .dialog-enter{
+        width: 100%;
+        height: 100px;
+      }
+      #chat{
+        width: 80%;
+        height: 100%;
+        padding: 10px;
+        float: left;
+        font-size: 16px;
+        line-height: 20px;
+        color: grey;
+      }
+      #chat:focus{
+        outline: unset;
+      }
+      #submit{
+        width: 20%;
+        height: 100%;
+        float: left;
+        color: #fff;
+        font-size: 20px;
+        line-height: 100px;
+        text-align: center;
+        cursor: pointer;
+        background-color: #00bcd4;
+      }
+      #submit:hover{
+        background-color: rgba(0,188,212,0.7);
+      }
+      .clearfix{zoom:1;}
+      .clearfix:after{content: '';overflow: hidden;clear: both;}
+      .dialog-box ul{
+        width: 100%;
+        height: 100%;
+        /*overflow: auto;*/
+        overflow-y: scroll;
+      }
+      .dialog-box li{
+        width: 100%;
+        padding: 10px;
+        position: relative;
+      }
+      .dialog-header{
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        left: 10px;
+        top: 10px;
+      }
+      .dialog-content{
+        width: 100%;
+        padding-left: 60px;
+        padding-right: 10px;
+      }
+      .dialog-content span{ 
+        font-size: 14px;
+        line-height: 16px;
+        color: grey;
+      }
+      .dialog-content p{
+        margin-top: 5px;
+        font-size: 16px;
+        line-height: 20px;
+      }
+    </style>
+</head>
+<body>
+<div id="app">
+  <div class="dialog-box">
+    <ul id="list">
+      <!-- <li class="clearfix">
+        <img class="dialog-header" src="http://images.kaistart.com/4252FC906BBD6474E050190AFD014A6120161128135412">
+        <div class="dialog-content">
+          <span>小白</span>
+          <span>2016-12-27 16:26:28</span>
+          <p>这里是我说的话这里是我说的话这里是我说的话这里是我说的话这里是我说的话这里是我说的话这里是我说的话这里是我说的话这里是我说的话这里是我说的话这里是我说的话这里是我说的话这里是我说的话这里是我说的话这里是我说的话这里是我说的话这里是我说的话</p>
+        </div>
+      </li> -->
+    </ul>
+  </div>
+  <div class="dialog-enter clearfix">
+    <textarea id="chat" autofocus="autofocus"></textarea>
+    <div id="submit">发送</div>
+  </div>
+</div>
+<!-- <button id="form"></button> -->
+<script src="/socket.io/socket.io.js"></script>
+<script src="/jquery-1.11.1.js"></script>
+<script>
+  var socket = io();
+  $('#submit').click(function(){
+    var content = $('#chat').val();
+    if (content !== ''){
+        socket.emit('chat message', content);
+        $('#chat').val('');
+        return false;
+    }
+  });
+  socket.on('chat message',function(msg){
+    var str = '<li class="clearfix"><img class="dialog-header" src="http://images.kaistart.com/4252FC906BBD6474E050190AFD014A6120161128135412"><div class="dialog-content"><span>小白</span><span>2016-12-27 16:26:28</span><p>'+ msg +'</p></div></li>';
+    $('#list').append(str);
+  });
+</script>
+</body>
+</html>

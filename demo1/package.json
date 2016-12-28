@@ -1,0 +1,15 @@
+{
+  "name": "demo1",
+  "version": "1.0.0",
+  "description": "to know how socket.io works",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "author": "stella",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "socket.io": "^1.7.2"
+  }
+}
